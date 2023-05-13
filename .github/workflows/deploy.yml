@@ -3,9 +3,9 @@ name: deploy
 on:
     push:
     workflow_dispatch:
-    schedule:
+    # schedule:
         # Runs everyday at 8:00 AM
-        - cron: "0 0 * * *"
+        # - cron: "0 0 * * *"
 
 jobs:
     build:
@@ -23,7 +23,7 @@ jobs:
                   hugo-version: "latest"
 
             - name: Build Web
-              run: hugo
+              run: hugo -t github-style
 
             - name: Deploy Web
               uses: peaceiris/actions-gh-pages@v3
