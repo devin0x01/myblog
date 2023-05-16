@@ -21,14 +21,14 @@ git add .
 git push -u origin master
 ```
 
-## 更新主题
+### 更新主题
 
 ```
 cd themes/github-style
 git pull
 ```
 
-## 编辑readme
+### 编辑readme
 
 ```
 hugo new readme.md
@@ -37,7 +37,7 @@ echo '`Hello World!`' > content/readme.md
 
 ## 新增帖子
 
-Hugo will create a post with `draft: true`, change it to false in order for it to show in the website.
+Hugo will create a post with `draft: true`, change it to false in order for it to show in the website.  
 `hugo new post/title_of_the_post.md`
 
 ## 本地预览
@@ -59,7 +59,7 @@ Hugo will create a post with `draft: true`, change it to false in order for it t
 
 - 在 github 账户申请具备 repo 和 workflow 权限的密钥
 - 在博客原始代码仓库添加环境变量 `PERSONAL_TOKEN`  
-![image](https://raw.githubusercontent.com/devin0x01/myimages/master/github_pages/github_actions_settings.png)
+![image](https://raw.githubusercontent.com/devin0x01/myimages/master/githubpages/image_a98bd2b10c3990c971f643943b261a8d.png)
 - 编辑 `.github/workflow/deploy.yml` 文件
 
   > on 表示 GitHub Action 触发条件，我设置了 push、workflow_dispatch 和 schedule 三个条件：
@@ -69,5 +69,9 @@ Hugo will create a post with `draft: true`, change it to false in order for it t
 
   > jobs 表示 GitHub Action 中的任务，我们设置了一个 build 任务，runs-on 表示 GitHub Action 运行环境，我们选择了 ubuntu-latest。
   > 我们的 build 任务包含了 Checkout、Setup Hugo、Build Web 和 Deploy Web 四个主要步骤，其中 run 是执行的命令，uses 是 GitHub Action 中的一个插件，我们使用了 peaceiris/actions-hugo@v2 和 peaceiris/actions-gh-pages@v3 这两个插件。其中 Checkout 步骤中 with 中配置 submodules 值为 true 可以同步博客源仓库的子模块，即我们的主题模块。
-  > EXTERNAL_REPOSITORY 需要改为自己的 GitHub Pages 仓库
+  > 另外，EXTERNAL_REPOSITORY 需要改为自己的 GitHub Pages 仓库
 
+## 图床设置
+[图床设置教程](http://www.duheweb.com/post/20210421125522.html)  
+- picgo-plugin-github-plus: picgo自带的github图床删除图片时不能同步到github，使用此插件可以在picgo相册中删除图片时自动把github图床内的图片也删除了。
+- picgo-plugin-rename-file: 此插件可以对上传的文件按指定格式重命名，比如按照md5值等。
