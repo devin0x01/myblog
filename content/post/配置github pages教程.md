@@ -58,8 +58,8 @@ Hugo will create a post with `draft: true`, change it to false in order for it t
 ### 使用 Github Actions 自动部署
 
 - 在 github 账户申请具备 repo 和 workflow 权限的密钥
-- 在博客原始代码仓库添加环境变量 `PERSONAL_TOKEN`
-- ![image](https://raw.githubusercontent.com/devin0x01/myimages/master/github_pagesgithub_actions.png)
+- 在博客原始代码仓库添加环境变量 `PERSONAL_TOKEN`  
+![image](https://raw.githubusercontent.com/devin0x01/myimages/master/github_pages/github_actions_settings.png)
 - 编辑 `.github/workflow/deploy.yml` 文件
 
   > on 表示 GitHub Action 触发条件，我设置了 push、workflow_dispatch 和 schedule 三个条件：
