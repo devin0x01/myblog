@@ -1,3 +1,10 @@
+---
+title: "expect实现交互式输入"
+date: 2023-06-18T14:05:25+08:00
+tags: ["Shell"]
+categories: []
+draft: false
+---
 # 1.常用命令
 > 选项：
 > -c:执行脚本前先执行的命令，可多次使用。

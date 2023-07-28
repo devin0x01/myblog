@@ -1,3 +1,10 @@
+---
+title: "Qt开发总结篇一"
+date: 2023-06-18T14:05:25+08:00
+tags: ["Qt"]
+categories: []
+draft: false
+---
 ## GUI界面
 
 ### 限制输入的内容

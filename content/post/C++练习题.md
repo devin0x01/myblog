@@ -1,3 +1,10 @@
+---
+title: "C++练习题"
+date: 2023-06-18T14:05:25+08:00
+tags: ["C++"]
+categories: []
+draft: false
+---
 ## 多态
 
 ### 判断

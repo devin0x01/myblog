@@ -1,3 +1,10 @@
+---
+title: "coredump配置"
+date: 2023-06-18T14:05:25+08:00
+tags: ["编译调试"]
+categories: []
+draft: false
+---
 ```bash
 ulimit -c unlimited
 echo "1" > /proc/sys/kernel/core_uses_pid

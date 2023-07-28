@@ -1,4 +1,10 @@
-
+---
+title: "CMake语法基础"
+date: 2023-07-26T14:05:25+08:00
+tags: ["CMake"]
+categories: []
+draft: false
+---
 # 基本表达式
 [if — CMake 3\.27\.1 Documentation](https://cmake.org/cmake/help/latest/command/if.html)  
 [Cmake中的条件判断if/elseif/else \- 简书](https://www.jianshu.com/p/3958cff0318b)

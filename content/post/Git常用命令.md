@@ -1,3 +1,10 @@
+---
+title: "Git常用命令"
+date: 2023-06-18T14:05:25+08:00
+tags: ["Git"]
+categories: []
+draft: false
+---
 # 1.git remote
 ```git
 关联远端仓库

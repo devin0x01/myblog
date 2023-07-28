@@ -1,3 +1,10 @@
+---
+title: "Java基础"
+date: 2023-06-18T14:05:25+08:00
+tags: ["Java"]
+categories: []
+draft: false
+---
 ## 数据类型
 
 ### INFINITY和NaN
