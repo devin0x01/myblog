@@ -59,7 +59,7 @@ Hugo will create a post with `draft: true`, change it to false in order for it t
 
 - 在 github 账户申请具备 repo 和 workflow 权限的密钥
 - 在博客原始代码仓库添加环境变量 `PERSONAL_TOKEN`  
-![image](https://raw.githubusercontent.com/devin0x01/myimages/master/githubpages/image_a98bd2b10c3990c971f643943b261a8d.png)
+![image](https://cdn.jsdelivr.net/gh/devin0x01/myimages@master/githubpages/image_a98bd2b10c3990c971f643943b261a8d.png)
 - 编辑 `.github/workflow/deploy.yml` 文件
 
   > on 表示 GitHub Action 触发条件，我设置了 push、workflow_dispatch 和 schedule 三个条件：
@@ -75,3 +75,8 @@ Hugo will create a post with `draft: true`, change it to false in order for it t
 [图床设置教程](http://www.duheweb.com/post/20210421125522.html)  
 - picgo-plugin-github-plus: picgo自带的github图床删除图片时不能同步到github，使用此插件可以在picgo相册中删除图片时自动把github图床内的图片也删除了。
 - picgo-plugin-rename-file: 此插件可以对上传的文件按指定格式重命名，比如按照md5值等。
+
+### 图床访问加速
+[CDN jsdelivr加速github图床](https://finisky.github.io/speedupgithubbycdn)  
+替换前缀即可, 其中`@{branch}`部分可以省略：replace `https://raw.githubusercontent.com/{user}/{repo}/{branch}/`
+to `https://cdn.jsdelivr.net/gh/{user}/{repo}@{branch}/`
