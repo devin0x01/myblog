@@ -23,13 +23,14 @@ jobs:
                   hugo-version: "latest"
 
             - name: Build Web
-              run: hugo -t github-style
+              #run: hugo -t github-style
+              run: hugo
 
             - name: Deploy Web
               uses: peaceiris/actions-gh-pages@v3
               with:
                   PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
                   EXTERNAL_REPOSITORY: devin0x01/devin0x01.github.io
-                  PUBLISH_BRANCH: master
+                  PUBLISH_BRANCH: mainroad #master
                   PUBLISH_DIR: ./public
                   commit_message: ${{ github.event.head_commit.message }}
