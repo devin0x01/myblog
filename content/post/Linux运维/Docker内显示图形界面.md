@@ -1,7 +1,7 @@
 ---
 title: "Docker内显示图形界面"
 date: 2023-07-28T16:05:25+08:00
-tags: ["Linux开发"]
+tags: ["Linux运维", "Docker", "Qt"]
 categories: []
 draft: false
 ---
