@@ -24,7 +24,28 @@ sudo chmod 755 /usr/local/bin/docker-compose
 docker-compose version
 ```
 
-## 1.2.安装linuxserver/wireguard镜像
+## 1.2.安装wg-easy镜像
+[wg-easy/wg-easy: The easiest way to run WireGuard VPN + Web-based Admin UI.](https://github.com/wg-easy/wg-easy)  
+[基于Wireguard技术的虚拟个人网络搭建: 基于wireguard的内网穿透技术~](https://gitee.com/spoto/wireguard#docker%E5%AE%89%E8%A3%85wireguard)  
+[使用 WireGuard 无缝接入内网 - Devld](https://devld.me/2020/07/27/wireguard-setup/)  
+[Wireguard 全互联模式（full mesh）配置指南 – 云原生实验室 - Kubernetes|Docker|Istio|Envoy|Hugo|Golang|云原生](https://icloudnative.io/posts/wireguard-full-mesh/)
+```shell
+docker run -d \
+  --name=wg-easy \
+  -e WG_HOST=🚨YOUR_SERVER_IP \
+  -e PASSWORD=🚨YOUR_ADMIN_PASSWORD \
+  -v ~/.wg-easy:/etc/wireguard \
+  -p 51820:51820/udp \
+  -p 51821:51821/tcp \
+  --cap-add=NET_ADMIN \
+  --cap-add=SYS_MODULE \
+  --sysctl="net.ipv4.conf.all.src_valid_mark=1" \
+  --sysctl="net.ipv4.ip_forward=1" \
+  --restart unless-stopped \
+  weejewel/wg-easy
+```
+
+## 1.3.安装linuxserver/wireguard镜像(建议使用1.2)
 ```shell
 sudo mkdir /opt/wireguard-server
 vim docker-compose.yaml # yaml里需要配置容器的名字，server的地址
@@ -65,10 +86,63 @@ ubuntu@VM-4-3-ubuntu:/opt/wireguard-server $ tree
 5 directories, 12 files
 ```
 
-`/opt/wireguard-server/docker-compose.yaml`内容如下，需要修改`SERVERURL`字段  
-`PEERS=8`时会生成8个peer的配置文件
->注意: WireGuard 使用的是UDP协议，下面的配置文件使用的端口是51820
+```shell
+#/opt/wireguard-server/config/wg0.conf
+
+[Interface]
+Address = 10.13.13.1
+ListenPort = 51820
+PrivateKey = UIx5/v...
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE
+
+[Peer]
+# peer1
+PublicKey = x4iD6...
+PresharedKey = OCjHe...
+AllowedIPs = 10.13.13.2/32
+
+[Peer]
+# peer2
+PublicKey = 91rwZ...
+PresharedKey = /lOtI...
+AllowedIPs = 10.13.13.3/32
+```
+**Interface**  
+这个配置项为本地接口的配置，其中：  
+Address 为 VPN 连接的本地 IP 地址  
+ListenPort 作为服务端需要声明一个监听的端口，WireGuard 使用 UDP 协议，这个端口可以任意填写。需要保证防火墙已开放 UDP 的这个端口  
+PrivateKey 为上一步生成的私钥
+
+**Peer**  
+这个为对端的配置，如果有多个，则需添加多个 Peer 配置，服务端的 Peer 配置项即定义了各个可连接的客户端。其中：  
+PublicKey 为对端的公钥  
+AllowedIPs 在配置路由会讲到  
+
+```shell
+#/opt/wireguard-server/config/peer1/peer1.conf
+
+[Interface]
+Address = 10.13.13.2
+PrivateKey = kGaLz...
+ListenPort = 51820
+DNS = 10.13.13.1
+
+[Peer]
+PublicKey = T2i88...
+PresharedKey = OCjHe...
+Endpoint = 100.101.102.103:51820
+AllowedIPs = 0.0.0.0/0
+```
+客户端与服务端不同的地方在于：  
+Interface 配置中没有了 ListenPort  
+Peer 即为服务端，与服务端不同的地方在于多了一个 Endpoint  
+
 ```yaml
+#/opt/wireguard-server/docker-compose.yaml
+#需要修改`SERVERURL`字段  
+#`PEERS=8`时会生成8个peer的配置文件
+
 version: '3.7'
 services:
   wireguard:
@@ -98,7 +172,10 @@ services:
     restart: always
 ```
 
-## 1.3.防火墙设置
+## 1.4.防火墙设置
+![腾讯云服务器防火墙设置](https://cdn.jsdelivr.net/gh/devin0x01/myimages@master/githubpages/image_48ff7bf1ae7a6ae1fa4979f8fecfccec.png)
+
+下面这个好像非必须？
 ```shell
 ### on Redhat Based ###
 sudo firewall-cmd --permanent --add-port=51820/udp
@@ -109,7 +186,6 @@ sudo apt install ufw
 sudo ufw allow 51820/udp
 ```
 
-![腾讯云服务器防火墙设置](https://cdn.jsdelivr.net/gh/devin0x01/myimages@master/githubpages/image_48ff7bf1ae7a6ae1fa4979f8fecfccec.png)
 
 # 2.私网配置
 ## 2.1.安装wireguard
@@ -136,6 +212,33 @@ ping 10.13.13.1
 
 # 这时候可以在server段检查下状态，会发现peer已经连接上去了
 docker exec -it wireguard wg
+```
+
+`wg-quick up wg0`会自动去找配置文件`/etc/wireguard/wg0.conf`
+```shell
+$ systemctl cat wg-quick@wg0
+# /lib/systemd/system/wg-quick@.service
+[Unit]
+Description=WireGuard via wg-quick(8) for %I
+After=network-online.target nss-lookup.target
+Wants=network-online.target nss-lookup.target
+PartOf=wg-quick.target
+Documentation=man:wg-quick(8)
+Documentation=man:wg(8)
+Documentation=https://www.wireguard.com/
+Documentation=https://www.wireguard.com/quickstart/
+Documentation=https://git.zx2c4.com/wireguard-tools/about/src/man/wg-quick.8
+Documentation=https://git.zx2c4.com/wireguard-tools/about/src/man/wg.8
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/wg-quick up %i
+ExecStop=/usr/bin/wg-quick down %i
+Environment=WG_ENDPOINT_RESOLUTION_RETRIES=infinity
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 # 3.添加更多的节点
