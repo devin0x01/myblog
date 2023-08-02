@@ -13,21 +13,10 @@ draft: false
 - 公网机器: IP=100.101.102.103, Name=TencentVM1
 - 私网机器: IP=192.168.123.189, Name=LocalMint1
 
-# 1.公网配置
-## 1.1.安装Docke和docker-compose
-[Docker Compose | 菜鸟教程](https://www.runoob.com/docker/docker-compose.html)
-
-```shell
-# 安装docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod 755 /usr/local/bin/docker-compose
-docker-compose version
-```
-
-## 1.2.安装wg-easy镜像
+# 1.服务端配置
+## 1.1.安装wg-easy镜像
 [wg-easy/wg-easy: The easiest way to run WireGuard VPN + Web-based Admin UI.](https://github.com/wg-easy/wg-easy)  
 [基于Wireguard技术的虚拟个人网络搭建: 基于wireguard的内网穿透技术~](https://gitee.com/spoto/wireguard#docker%E5%AE%89%E8%A3%85wireguard)  
-[使用 WireGuard 无缝接入内网 - Devld](https://devld.me/2020/07/27/wireguard-setup/)  
 [Wireguard 全互联模式（full mesh）配置指南 – 云原生实验室 - Kubernetes|Docker|Istio|Envoy|Hugo|Golang|云原生](https://icloudnative.io/posts/wireguard-full-mesh/)
 ```shell
 docker run -d \
@@ -45,7 +34,14 @@ docker run -d \
   weejewel/wg-easy
 ```
 
-## 1.3.安装linuxserver/wireguard镜像(建议使用1.2)
+## 1.2.安装linuxserver/wireguard镜像(建议使用wg-easy)
+```shell
+# 安装docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.19.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod 755 /usr/local/bin/docker-compose
+docker-compose version
+```
+
 ```shell
 sudo mkdir /opt/wireguard-server
 vim docker-compose.yaml # yaml里需要配置容器的名字，server的地址
@@ -61,7 +57,7 @@ docker compose restart wireguard
 docker compose ps
 ```
 
-配置文件的目录结构
+### 1.2.1.配置文件的目录结构
 ```shell
 ubuntu@VM-4-3-ubuntu:/opt/wireguard-server $ tree
 .
@@ -138,6 +134,7 @@ AllowedIPs = 0.0.0.0/0
 Interface 配置中没有了 ListenPort  
 Peer 即为服务端，与服务端不同的地方在于多了一个 Endpoint  
 
+### 1.2.2.Docker Compose配置文件
 ```yaml
 #/opt/wireguard-server/docker-compose.yaml
 #需要修改`SERVERURL`字段  
@@ -172,7 +169,7 @@ services:
     restart: always
 ```
 
-## 1.4.防火墙设置
+## 1.3.防火墙设置
 ![腾讯云服务器防火墙设置](https://cdn.jsdelivr.net/gh/devin0x01/myimages@master/githubpages/image_48ff7bf1ae7a6ae1fa4979f8fecfccec.png)
 
 下面这个好像非必须？
@@ -187,14 +184,26 @@ sudo ufw allow 51820/udp
 ```
 
 
-# 2.私网配置
+# 2.客户端配置
 ## 2.1.安装wireguard
-[wireguard已合入内核5.6版本 - 博客园](https://www.cnblogs.com/yangtao416/p/16372660.html)  
+内核版本大于5.6
 ```shell
 sudo apt install -y wireguard openresolv
 ```
 
-## 2.2.拷贝配置文件到LocalMint1
+// TODO
+内核版本4.19实际测试：[WireGuard 白皮书带读3 - 知乎](https://zhuanlan.zhihu.com/p/478369772)
+```shell
+sudo apt-get install -y wireguard-dkms wireguard-tools
+#sudo ip link add dev wg0 type wireguard
+#sudo ip address add dev wg0 192.168.1.1/32
+#sudo wg set wg0 listen-port 6789 private-key /etc/wireguard/privatekey
+#sudo ip link set wg0 up
+sudo wg-quick up wg0
+```
+
+## 2.2.拷贝配置文件并启动
+### 2.2.1.VM类型客户端
 ```shell
 # 拷贝配置文件
 scp /opt/wireguard-server/config/peer1/peer1.conf username@serverIP:~/peer1.conf
@@ -239,6 +248,25 @@ Environment=WG_ENDPOINT_RESOLUTION_RETRIES=infinity
 
 [Install]
 WantedBy=multi-user.target
+```
+
+### 2.2.2.容器类型客户端
+无法设置一些服务开机自启，比如无法执行`systemctl enable wg-quikc@wg0`
+```shell
+## 配置VPN，从wg-easy的WebUI下载配置文件
+vim ~/wg0.conf
+sudo wg-quick up ~/wg0.conf
+#如果提示wg0存在时(wg-quick: `wg0' already exists)执行下面一行
+#sudo ip link delete dev wg0
+```
+
+网卡相关的一些命令
+```shell
+sudo ip link add wg0 type wireguard
+sudo ip link delete dev wg0
+sudo ip link set up dev wg0
+sudo ifconfig wg0 up
+ifconfig
 ```
 
 # 3.添加更多的节点
