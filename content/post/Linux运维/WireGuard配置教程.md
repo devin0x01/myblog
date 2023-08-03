@@ -18,12 +18,19 @@ draft: false
 [wg-easy/wg-easy: The easiest way to run WireGuard VPN + Web-based Admin UI.](https://github.com/wg-easy/wg-easy)  
 [基于Wireguard技术的虚拟个人网络搭建: 基于wireguard的内网穿透技术~](https://gitee.com/spoto/wireguard#docker%E5%AE%89%E8%A3%85wireguard)  
 [Wireguard 全互联模式（full mesh）配置指南 – 云原生实验室 - Kubernetes|Docker|Istio|Envoy|Hugo|Golang|云原生](https://icloudnative.io/posts/wireguard-full-mesh/)
+
+这个新建的容器内会多一个`wg0`网卡，IP地址是`10.0.8.1`，而且网卡只在容器内可见。  
+server的配置文件会放在`/opt/wg-easy`目录下。TCP的51821端口用于访问WebUI。  
 ```shell
 docker run -d \
   --name=wg-easy \
-  -e WG_HOST=🚨YOUR_SERVER_IP \
-  -e PASSWORD=🚨YOUR_ADMIN_PASSWORD \
-  -v ~/.wg-easy:/etc/wireguard \
+  -e WG_HOST=123.123.123.123 (🚨这里输入服务器的公网IP) \
+  -e PASSWORD=passwd123 (🚨这里输入你的密码) \
+  -e WG_DEFAULT_ADDRESS=10.0.8.x （🚨默认IP地址）\
+  -e WG_DEFAULT_DNS=114.114.114.114 （🚨默认DNS）\
+  -e WG_ALLOWED_IPS=10.0.8.0/24 （🚨允许连接的IP段）\
+  -e WG_PERSISTENT_KEEPALIVE=25 （🚨重连间隔）\
+  -v /opt/wg-easy:/etc/wireguard \
   -p 51820:51820/udp \
   -p 51821:51821/tcp \
   --cap-add=NET_ADMIN \
@@ -82,6 +89,7 @@ ubuntu@VM-4-3-ubuntu:/opt/wireguard-server $ tree
 5 directories, 12 files
 ```
 
+### 1.2.2.服务端配置文件
 ```shell
 #/opt/wireguard-server/config/wg0.conf
 
@@ -115,6 +123,7 @@ PrivateKey 为上一步生成的私钥
 PublicKey 为对端的公钥  
 AllowedIPs 在配置路由会讲到  
 
+### 1.2.3.客户端配置文件
 ```shell
 #/opt/wireguard-server/config/peer1/peer1.conf
 
@@ -134,7 +143,7 @@ AllowedIPs = 0.0.0.0/0
 Interface 配置中没有了 ListenPort  
 Peer 即为服务端，与服务端不同的地方在于多了一个 Endpoint  
 
-### 1.2.2.Docker Compose配置文件
+### 1.2.4.Docker Compose配置文件
 ```yaml
 #/opt/wireguard-server/docker-compose.yaml
 #需要修改`SERVERURL`字段  
@@ -186,20 +195,25 @@ sudo ufw allow 51820/udp
 
 # 2.客户端配置
 ## 2.1.安装wireguard
-内核版本大于5.6
+### 2.1.1.内核版本大于5.6
 ```shell
 sudo apt install -y wireguard openresolv
 ```
 
-// TODO
-内核版本4.19实际测试：[WireGuard 白皮书带读3 - 知乎](https://zhuanlan.zhihu.com/p/478369772)
+### 2.1.2.内核版本4.19
+[WireGuard 白皮书带读3 - 知乎](https://zhuanlan.zhihu.com/p/478369772)  
 ```shell
-sudo apt-get install -y wireguard-dkms wireguard-tools
-#sudo ip link add dev wg0 type wireguard
-#sudo ip address add dev wg0 192.168.1.1/32
-#sudo wg set wg0 listen-port 6789 private-key /etc/wireguard/privatekey
-#sudo ip link set wg0 up
+sudo apt-get install -y wireguard-dkms wireguard-tools linux-headers-$(uname -r) 
+sudo ip link add dev wg0 type wireguard
+sudo ip address add dev wg0 192.168.1.1/32
+sudo wg set wg0 listen-port 6789 private-key /etc/wireguard/privatekey
+sudo ip link set wg0 up
 sudo wg-quick up wg0
+```
+实际测试时报错如下，未解决:
+```shell
+$ sudo ip link add dev wg0 type wireguard
+RTNETLINK answers: Operation not supported
 ```
 
 ## 2.2.拷贝配置文件并启动
