@@ -60,28 +60,12 @@ remote_port = 6000 # 注意：需要在云服务器上开放6000端口
 注意：不要使用后台方式运行，`nohup /opt/frp/frpc -c /opt/frp/frpc.ini 2>&1 &`
 ，否则下次连接可能会遇到以下报错：[frp错误，frp报错，[ssh] start error: proxy name [ssh] is already in use_狗狗25的博客-CSDN博客](https://blog.csdn.net/wzying25/article/details/105482746)
 
-## 1.3.设置服务端frp开机自启动
+## 1.3.设置frps开机自启动
 [使用 systemd | frp](https://gofrp.org/docs/setup/systemd/)  
 
-```shell
-sudo apt install systemd
-sudo vim /etc/systemd/system/frps.service # 见下面 frps.service 的文件内容
-
-# 配置 frps 开机自启
-systemctl enable frps
-# 启动frp
-systemctl start frps
-# 停止frp
-systemctl stop frps
-# 重启frp
-systemctl restart frps
-# 查看frp状态
-systemctl status frps
-```
-
 ```ini
+$ sudo vim /etc/systemd/system/frps.service
 $ systemctl cat frps
-
 # /etc/systemd/system/frps.service
 [Unit]
 # 服务名称，可自定义
@@ -96,4 +80,64 @@ ExecStart = /opt/frp/frps -c /opt/frp/frps.ini
 
 [Install]
 WantedBy = multi-user.target
+```
+```shell
+# 配置 frps 开机自启
+systemctl enable frps
+# 启动frp
+systemctl start frps
+# 停止frp
+systemctl stop frps
+# 重启frp
+systemctl restart frps
+# 查看frp状态
+systemctl status frps
+```
+
+
+## 1.4.设置frpc开机自启动
+```shell
+$ sudo systemctl cat frpc
+# /etc/systemd/system/frpc.service
+[Unit]
+# 服务名称，可自定义
+Description = frp client
+After = network.target syslog.target
+Wants = network.target
+
+[Service]
+Type = simple
+# 启动frps的命令，需修改为您的frps的安装路径
+ExecStartPre = /bin/sleep 10
+ExecStart = /opt/frp/frpc -c /opt/frp/frpc.ini
+
+[Install]
+WantedBy = multi-user.target
+```
+
+```shell
+$ systemctl get-default
+graphical.target
+$ cd /etc/systemd/system
+$ sudo vim frpc.service
+$ sudo systemctl enable frpc
+Created symlink /etc/systemd/system/multi-user.target.wants/frpc.service → /etc/systemd/system/frpc.service.
+$ sudo systemctl status frpc
+● frpc.service - frp client
+   Loaded: loaded (/etc/systemd/system/frpc.service; enabled; vendor preset: enabled)
+   Active: inactive (dead)
+$ sudo systemctl restart frpc
+$ sudo systemctl status frpc
+● frpc.service - frp client
+   Loaded: loaded (/etc/systemd/system/frpc.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sun 2023-08-06 05:13:52 UTC; 8s ago
+ Main PID: 1361 (frpc)
+   CGroup: /system.slice/frpc.service
+           └─1361 /opt/frp/frpc -c /opt/frp/frpc.ini
+
+Aug 06 05:13:52 firefly systemd[1]: Started frp client.
+Aug 06 05:13:52 firefly frpc[1361]: 2023/08/06 05:13:52 [I] [root.go:220] start frpc service for config file [/opt/frp/frpc.ini]
+Aug 06 05:13:53 firefly frpc[1361]: 2023/08/06 05:13:53 [I] [service.go:301] [f8d3384fbb8c1471] login to server success, get run id [f8d3384fbb8c1471]
+Aug 06 05:13:53 firefly frpc[1361]: 2023/08/06 05:13:53 [I] [proxy_manager.go:150] [f8d3384fbb8c1471] proxy added: [ssh]
+Aug 06 05:13:53 firefly frpc[1361]: 2023/08/06 05:13:53 [I] [control.go:172] [f8d3384fbb8c1471] [ssh] start proxy success
 ```
