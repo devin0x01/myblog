@@ -7,6 +7,7 @@ draft: false
 ---
 
 [Docker — 从入门到实践](https://yeasy.gitbook.io/docker_practice/)  
+[Docker Guide](https://jiajially.gitbooks.io/dockerguide/content/)  
 [清理Docker的container，image与volume · 零壹軒·笔记](https://note.qidong.name/2017/06/26/docker-clean/)  
 
 # docker
@@ -35,6 +36,9 @@ docker commit -a "author" -m "description" a404c6c174a2 devincpp/mysql:v1  #-p�
 #数据卷是被设计用来持久化数据的，生命周期独立于容器，Docker不会在容器被删除后自动删除数据卷，并且也不存在垃圾回收机制。
 docker image prune #清理悬挂镜像
 docker volume prune #清理无用数据卷
+docker volume list #查看数据卷
+docker volume create v2 #创建一个名为v2的数据卷，之后docker run时可以作为本地目录映射
+docker volume rm v2 #删除一个名为v2的数据卷
 ```
 
 # docker compose

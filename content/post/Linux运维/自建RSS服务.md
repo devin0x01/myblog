@@ -6,11 +6,26 @@ categories: []
 draft: false
 ---
 
-参考链接：  
-[docker-compose 部署 RSS 服务订阅、安装tiny-tiny-rss、RSSHub - 贝尔塔猫 - 博客园](https://www.cnblogs.com/CyLee/p/16159637.html)  
 [我的 RSS 最佳实践](https://slarker.me/rss-best-practices/)
 
-# 1.部署过程
+# 1.部署Fresh RSS
+[笔记｜Docker 快速搭建 FreshRSS | Jack‘s Space](https://veryjack.com/technique/docker-install-freshrss/)  
+[Docker 时区调整方案-腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/article/1626811)  
+
+Android可以使用Feedme客户端，Windows可以通过`ip:port`方式访问  
+```shell
+docker run -d --restart unless-stopped --log-opt max-size=10m \
+  -p 8282:80 \
+  -e TZ=Asia/Shanghai \
+  -e 'CRON_MIN=1,15,31' \
+  -v /opt/freshrss/data:/var/www/FreshRSS/data \
+  -v /opt/freshrss/extensions:/var/www/FreshRSS/extensions \
+  --name freshrss \
+  freshrss/freshrss
+```
+
+# 2.部署Tiny Tiny RSS
+[docker-compose 部署 RSS 服务订阅、安装tiny-tiny-rss、RSSHub - 贝尔塔猫 - 博客园](https://www.cnblogs.com/CyLee/p/16159637.html)  
 ```shell
 # 下载 docker-compose.yml 配置文件
 mkdir -p /opt/ttrss && cd /opt/ttrss
@@ -29,7 +44,7 @@ docker-compose up -d
 默认账户：admin/password  
 访问地址：配置文件中的`SELF_URL_PATH`字段  
 
-## 1.1.docker-compose.yml 配置文件
+## 2.1.docker-compose.yml 配置文件
 ```yaml
 version: "3"
 services:
@@ -76,7 +91,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=ttrss # feel free to change the password
     volumes:
-      - ~/ttrss/postgres/data/:/var/lib/postgresql/data # persist postgres data to ~/postgres/data/ on the host
+      - /opt/ttrss/postgres/data/:/var/lib/postgresql/data # persist postgres data to ~/postgres/data/ on the host
     networks:
       - database_only
     restart: always
