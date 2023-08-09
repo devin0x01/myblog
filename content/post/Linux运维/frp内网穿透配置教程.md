@@ -33,6 +33,11 @@ $ tree /opt/frp
 bind_port = 7000 # 注意：需要在云服务设置开放7000端口
 # 身份验证(可选)
 token = i*RY2KI9^A7H
+# web界面
+dashboard_port = 7500
+# dashboard 用户名密码，可选，默认为空
+dashboard_user = admin
+dashboard_pwd = admin
 ```
 运行方式：`/opt/frp/frps -c /opt/frp/frps.ini`
 
