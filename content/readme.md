@@ -23,3 +23,4 @@
 # Awesome
 [skywind3000/awesome-cheatsheets: 超级速查表](https://github.com/skywind3000/awesome-cheatsheets)  
 [iggredible/Learn-Vim: Learning Vim and Vimscript doesn't have to be hard.](https://github.com/iggredible/Learn-Vim)  
+[521xueweihan/HelloGitHub: 分享 GitHub 上有趣、入门级的开源项目。](https://github.com/521xueweihan/HelloGitHub)  
