@@ -1,7 +1,7 @@
 ---
 title: "WireGuard配置教程.md"
 date: 2023-07-30T12:10:05+08:00
-tags: ["Linux运维", "Docker"]
+tags: ["Linux运维", "WireGuard", "Docker"]
 categories: []
 draft: false
 ---
