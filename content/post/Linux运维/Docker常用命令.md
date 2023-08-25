@@ -28,6 +28,7 @@ docker rm -v $cid #同时删除 /var/lib/docker 目录下的数据卷
 docker logs $cid #查看容器日志
 
 docker system df #查看docker缓存大小
+docker system prune
 docker builder prune #一键清理 Build Cache
 docker builder prune --filter 'until=240h' #保留最近10天的缓存
 docker tag ca1b6b825289 devincpp/rk3568:v1.0 #重命名镜像
