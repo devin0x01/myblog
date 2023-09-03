@@ -58,7 +58,7 @@ AlignConsecutiveDeclarations: false
 # 容器类的空格 例如: OC的字典
 SpacesInContainerLiterals: false
 # 构造函数初始化列表，冒号后面断行
-BreakConstructorInitializers: AfterComma
+BreakConstructorInitializers: AfterColon
 # 函数参数换行
 AllowAllParametersOfDeclarationOnNextLine: true
 # 在续行(#下一行)时的缩进长度
