@@ -1,5 +1,5 @@
 ---
-title: "模板例子"
+title: "C++模板例子"
 date: 2023-11-02T01:05:25+08:00
 tags: ["C++"]
 categories: []
