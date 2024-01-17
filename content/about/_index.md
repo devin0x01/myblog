@@ -1,25 +1,34 @@
 +++
 title = "About"
-description = "Hugo, the world's fastest framework for building websites"
+description = "学习资料链接"
 date = "2019-02-28"
 aliases = ["about-us", "about-hugo", "contact"]
 author = "Hugo Authors"
 +++
 
-Written in Go, Hugo is an open source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+# Blogs
+[程序员的喵](https://catcoding.me/)  
+[高性能架构探索 | 一个专注于钻研技术的网站](https://www.ccppcoding.com/)  
+[wenfh2020文集](https://wenfh2020.com/category/)  
+[腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/column/1283)  
+[C++和STL中有哪些副作用或者稍不注意会产生性能开销的地方？ - 知乎](https://www.zhihu.com/question/355171938)  
 
-Hugo makes use of a variety of open source projects including:
+# C++
+[Effective Modern C++](https://cntransgroup.github.io/EffectiveModernCppChinese/)
+[AnthonyCalandra/modern-cpp-features](https://github.com/AnthonyCalandra/modern-cpp-features)  
+[sprinfall/cpp-thread-study: C++ 线程库示例及教程](https://github.com/sprinfall/cpp-thread-study)  
 
-* https://github.com/yuin/goldmark
-* https://github.com/alecthomas/chroma
-* https://github.com/muesli/smartcrop
-* https://github.com/spf13/cobra
-* https://github.com/spf13/viper
+[Kobzol/hardware-effects: Demonstration of various hardware effects.](https://github.com/Kobzol/hardware-effects)  
+[yanfeizhang/coder-kung-fu: 开发内功修炼](https://github.com/yanfeizhang/coder-kung-fu)  
+[天山老妖S的博客_性能优化_51CTO博客](https://blog.51cto.com/quantfabric/category34.html)  
+[plantegg/programmer_case: 程序员案例集锦](https://github.com/plantegg/programmer_case)  
 
-Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+# Linux
+[蜗窝科技](http://www.wowotech.net/)  
+[liexusong/linux-source-code-analyze: Linux内核源码分析](https://github.com/liexusong/linux-source-code-analyze)  
+[0voice/kernel_awsome_feature: 深入研究 kvm,ceph,fuse特性](https://github.com/0voice/kernel_awsome_feature)  
+[0voice/linux_kernel_wiki: linux内核学习资料](https://github.com/0voice/linux_kernel_wiki)  
 
-Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
-
-Websites built with Hugo are extremely fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
-
-Learn more and contribute on [GitHub](https://github.com/gohugoio).
+# Awesome
+[skywind3000/awesome-cheatsheets: 超级速查表](https://github.com/skywind3000/awesome-cheatsheets)  
+[iggredible/Learn-Vim: Learning Vim and Vimscript doesn't have to be hard.](https://github.com/iggredible/Learn-Vim)  
