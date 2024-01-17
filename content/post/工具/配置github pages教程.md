@@ -8,7 +8,9 @@ toc: true
 ---
 
 ## 1.基础配置
-关于删除submodule: [Git submodule add: "a git directory is found locally" issue - Stack Overflow](https://stackoverflow.com/questions/20929336/git-submodule-add-a-git-directory-is-found-locally-issue)
+关于删除submodule:  
+[Git中submodule的使用 - 知乎](https://zhuanlan.zhihu.com/p/87053283)  
+[Git submodule add: "a git directory is found locally" issue - Stack Overflow](https://stackoverflow.com/questions/20929336/git-submodule-add-a-git-directory-is-found-locally-issue)
 ```
 mkdir myblog && cd myblog
 hugo new site .
@@ -42,14 +44,23 @@ hugo new post/title_of_the_post.md
 ```
 
 ## 3.本地预览
-
+`hugo server -t github-style -D -w`
 > hugo server 的选项:  
 -w 修改后本地服务器可以立即变化  
 -D 也显示 `draft: true`的帖子
 
-`hugo server -t github-style -D -w`
+如果出现了下面的报错，检查下：  
+1.使用的配置文件是哪个  
+2.`config.toml`文件中的`themeDir`的路径以及`theme`的名称是否和下载的文件夹名称一致
+```
+WARN 2019/05/31 16:14:35 found no layout file for "HTML" for "section": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+WARN 2019/05/31 16:14:35 found no layout file for "HTML" for "section": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+WARN 2019/05/31 16:14:35 found no layout file for "HTML" for "taxonomyTerm": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+```
 
 ## 4.部署到 Github Pages
+
+注意确认下 `${username}.github.io` 这个repo下面 `Settings/Pages/Branch` 是否和部署的分支一样。
 
 ### 手动部署
 

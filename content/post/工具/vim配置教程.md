@@ -7,7 +7,14 @@ draft: false
 toc: true
 ---
 
-[vim 快速入门 — z42-doc 0.1 文档](https://z42.readthedocs.io/zh/latest/devtools/vim.html#id2)
+# 编译vim9
+[vim/vim: The official Vim repository](https://github.com/vim/vim)
+```
+./configure --with-luajit --enable-pythoninterp=yes --enable-python3interp=yes \
+    --enable-multibyte --prefix=$HOME/.local/vim9
+make -j
+make install
+```
 
 # 插件
 ## 1.vim-plug
@@ -199,3 +206,19 @@ nmap wm :WMToggle<cr>
 nnoremap <leader>f :Leaderf file<CR>
 nnoremap <leader>rg :Leaderf rg<CR>
 ```
+
+1.下载`rg`并加入PATH  
+[Releases · BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep/releases)  
+ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz  
+下载文件名中包含musl的版本，这个是静态链接的，可以解决动态库版本不匹配的问题。
+
+2.下载`gtags`并加入PATH  
+[gtags下载](https://ftp.gnu.org/pub/gnu/global/)
+```
+./configure
+make -j
+make install
+```
+
+leaderf生成的gtags文件是在`~/.cache`目录下。  
+[Vim 8 中 C/C++ 符号索引：GTags 篇 - 知乎](https://zhuanlan.zhihu.com/p/36279445)
