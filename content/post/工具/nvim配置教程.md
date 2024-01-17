@@ -4,6 +4,7 @@ date: 2023-08-16T16:05:25+08:00
 tags: ["vim"]
 categories: []
 draft: false
+toc: true
 ---
 
 # 1.安装NerdFont字体

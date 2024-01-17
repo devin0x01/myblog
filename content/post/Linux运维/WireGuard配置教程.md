@@ -4,6 +4,7 @@ date: 2023-07-30T12:10:05+08:00
 tags: ["Linux运维", "WireGuard", "Docker"]
 categories: []
 draft: false
+toc: true
 ---
 
 [Run WireGuard VPN Server in Docker Container with Docker Compose - TechViewLeo](https://techviewleo.com/run-wireguard-server-in-docker-container/?expand_article=1) -- 主要参考这个  

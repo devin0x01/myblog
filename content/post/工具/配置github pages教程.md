@@ -4,6 +4,7 @@ date: 2023-05-13T14:05:25+08:00
 tags: ["工具"]
 categories: []
 draft: false
+toc: true
 ---
 
 ## 1.基础配置

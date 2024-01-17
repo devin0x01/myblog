@@ -4,6 +4,7 @@ date: 2023-08-03T14:05:25+08:00
 tags: ["Photoshop"]
 categories: []
 draft: false
+toc: true
 ---
 
 1.选择侧边栏的裁剪工具，然后修改裁剪比例，点击对号  

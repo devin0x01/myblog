@@ -4,6 +4,7 @@ date: 2023-08-04T16:05:25+08:00
 tags: ["Linux运维", "frp"]
 categories: []
 draft: false
+toc: true
 ---
 
 # 重要资料

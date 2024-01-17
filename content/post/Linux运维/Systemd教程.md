@@ -4,6 +4,7 @@ date: 2023-07-31T16:05:25+08:00
 tags: ["Linux运维"]
 categories: []
 draft: false
+toc: true
 ---
 
 [Systemd 入门教程：实战篇 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html)

@@ -4,6 +4,7 @@ date: 2023-06-18T14:05:25+08:00
 tags: ["Git"]
 categories: []
 draft: false
+toc: true
 ---
 # 1.git remote
 ```git

@@ -4,6 +4,7 @@ date: 2023-06-18T14:05:25+08:00
 tags: ["工具"]
 categories: []
 draft: false
+toc: true
 ---
 # 命令行快速移动光标
 Ctrl+A/E    行首/行末

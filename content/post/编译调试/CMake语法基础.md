@@ -4,6 +4,7 @@ date: 2023-07-26T14:05:25+08:00
 tags: ["CMake"]
 categories: []
 draft: false
+toc: true
 ---
 # 基本表达式
 [if — CMake 3\.27\.1 Documentation](https://cmake.org/cmake/help/latest/command/if.html)  

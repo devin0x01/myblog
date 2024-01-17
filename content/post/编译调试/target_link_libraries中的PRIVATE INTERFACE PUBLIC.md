@@ -4,6 +4,7 @@ date: 2023-07-24T18:05:25+08:00
 tags: ["CMake"]
 categories: []
 draft: false
+toc: true
 ---
 [CMake target\_link\_libraries Interface Dependencies \- Stack Overflow](https://stackoverflow.com/questions/26037954/cmake-target-link-libraries-interface-dependencies)
 [CMake的链接选项：PRIVATE，INTERFACE，PUBLIC \- 知乎](https://zhuanlan.zhihu.com/p/493493849)

@@ -4,6 +4,7 @@ date: 2023-07-28T16:05:25+08:00
 tags: ["Linux运维", "Docker", "Qt"]
 categories: []
 draft: false
+toc: true
 ---
 # 关于X11
 [x(7) - Linux man page](https://linux.die.net/man/7/x)  

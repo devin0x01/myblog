@@ -4,6 +4,7 @@ date: 2023-08-08T16:05:25+08:00
 tags: ["RSS"]
 categories: []
 draft: false
+toc: true
 ---
 
 [我的 RSS 最佳实践](https://slarker.me/rss-best-practices/)

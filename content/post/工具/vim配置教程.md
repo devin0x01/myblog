@@ -4,6 +4,7 @@ date: 2023-08-25T16:05:25+08:00
 tags: ["vim"]
 categories: []
 draft: false
+toc: true
 ---
 
 [vim 快速入门 — z42-doc 0.1 文档](https://z42.readthedocs.io/zh/latest/devtools/vim.html#id2)

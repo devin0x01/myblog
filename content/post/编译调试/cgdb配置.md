@@ -4,6 +4,7 @@ date: 2023-06-18T14:05:25+08:00
 tags: ["编译调试"]
 categories: []
 draft: false
+toc: true
 ---
 ## 1.安装
 ```c

@@ -4,6 +4,7 @@ date: 2023-08-29T16:05:25+08:00
 tags: ["clang"]
 categories: []
 draft: false
+toc: true
 ---
 
 # 配置clang-format

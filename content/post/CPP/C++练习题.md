@@ -4,6 +4,7 @@ date: 2023-06-18T14:05:25+08:00
 tags: ["C++"]
 categories: []
 draft: false
+toc: true
 ---
 ## 多态
 
