@@ -1,7 +1,7 @@
 ---
 title: "clang-format配置教程"
 date: 2023-08-29T16:05:25+08:00
-tags: ["clang"]
+tags: ["Clang"]
 categories: []
 draft: false
 toc: true

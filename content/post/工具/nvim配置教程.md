@@ -1,7 +1,7 @@
 ---
 title: "nvim配置教程"
 date: 2023-08-16T16:05:25+08:00
-tags: ["vim"]
+tags: ["Vim"]
 categories: []
 draft: false
 toc: true

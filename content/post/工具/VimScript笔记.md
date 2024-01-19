@@ -1,7 +1,7 @@
 ---
 title: "VimScript笔记"
 date: 2024-01-17T15:05:25+08:00
-tags: ["vim"]
+tags: ["Vim"]
 categories: []
 draft: false
 toc: true
