@@ -98,10 +98,10 @@ sudo apt install universal-ctags
 ctags -R --c++-kinds=+p --fields=+iaS --extra=+q
 ```
 ctags的选项:
->-R表示递归创建，也就包括源代码根目录（当前目录）下的所有子目录;  
---c++-kinds=+ps是为c/c+语言添加函数原型信息;  
---fields=+iaS是为标签添加继承信息（inheritance），访问控制信息（access）和函数特征（Signature）如参数表或原型等;  
---extra=+q是为类成员添加标签;  
+>-R 表示递归创建，也就包括源代码根目录（当前目录）下的所有子目录;  
+--c++-kinds=+p 是为c/c+语言添加函数原型信息;  
+--fields=+iaS 是为标签添加继承信息（inheritance），访问控制信息（access）和函数特征（Signature）如参数表或原型等;  
+--extra=+q 是为类成员添加标签;  
 
 当用户在当前目录中运行vi时，会自动载入此tags文件。假如你想让你当前目录文件中的函数名在**其他目录**中打开vim时也能被定位到的话，那么可以把当前目录的tags文件路径添加到.vimrc中: `set tags+=/home/ubuntu/code/tags`
 
@@ -207,18 +207,21 @@ nnoremap <leader>f :Leaderf file<CR>
 nnoremap <leader>rg :Leaderf rg<CR>
 ```
 
-1.下载`rg`并加入PATH  
-[Releases · BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep/releases)  
-ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz  
-下载文件名中包含musl的版本，这个是静态链接的，可以解决动态库版本不匹配的问题。
+1.下载`ctags`并生成索引  
+[universal-ctags/ctags: A maintained ctags implementation](https://github.com/universal-ctags/ctags)  
+`:LeaderfTag`命令可以全局查找tag，其依赖ctags生成的tags文件。
 
-2.下载`gtags`并加入PATH  
-[gtags下载](https://ftp.gnu.org/pub/gnu/global/)
+2.下载`rg`并加入PATH  
+[Releases · BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep/releases)  
+下载文件名中包含musl的版本(ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz)，这个是静态链接的，可以解决动态库版本不匹配的问题。
+
+3.下载`gtags`并加入PATH  
+[gtags下载](https://ftp.gnu.org/pub/gnu/global/)  
+leaderf生成的gtags文件是在`~/.cache/LeaderF/gtags/`目录下。
 ```
 ./configure
 make -j
 make install
 ```
-
-leaderf生成的gtags文件是在`~/.cache`目录下。  
+## 自动生成gtags文件
 [Vim 8 中 C/C++ 符号索引：GTags 篇 - 知乎](https://zhuanlan.zhihu.com/p/36279445)
