@@ -1,5 +1,5 @@
 ---
-title: "target_link_libraries中的PRIVATE INTERFACE PUBLIC.md"
+title: "target_link_libraries中的PRIVATE INTERFACE PUBLIC"
 date: 2023-07-24T18:05:25+08:00
 tags: ["CMake"]
 categories: []
