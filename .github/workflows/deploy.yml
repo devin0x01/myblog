@@ -34,3 +34,6 @@ jobs:
                   PUBLISH_BRANCH: puppet
                   PUBLISH_DIR: ./public
                   commit_message: ${{ github.event.head_commit.message }}
+
+            - name: Sync to Cnblogs
+              run: echo $PWD && ./scripts/sync_cnblogs/sync.py ${{ secrets.CNBLOGS_TOKEN }} ./content/post

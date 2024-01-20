@@ -1,3 +1,6 @@
 [submodule "themes/puppet"]
 	path = themes/puppet
 	url = git@github.com:roninro/hugo-theme-puppet.git
+[submodule "scripts/sync_cnblogs"]
+	path = scripts/sync_cnblogs
+	url = git@github.com:devin0x01/sync_markdown_to_cnblogs.git
