@@ -213,7 +213,7 @@ nnoremap <leader>rg :Leaderf rg<CR>
 
 2.下载`rg`并加入PATH  
 [Releases · BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep/releases)  
-下载文件名中包含musl的版本(ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz)，这个是静态链接的，可以解决动态库版本不匹配的问题。
+下载文件名中包含musl的版本(`ripgrep-14.1.0-x86_64-unknown-linux-musl.tar.gz`)，这个是静态链接的，可以解决动态库版本不匹配的问题。
 
 3.下载`gtags`并加入PATH  
 [gtags下载](https://ftp.gnu.org/pub/gnu/global/)  
