@@ -8,9 +8,6 @@ toc: true
 ---
 
 ## 1.基础配置
-关于删除submodule:  
-[Git中submodule的使用 - 知乎](https://zhuanlan.zhihu.com/p/87053283)  
-[Git submodule add: "a git directory is found locally" issue - Stack Overflow](https://stackoverflow.com/questions/20929336/git-submodule-add-a-git-directory-is-found-locally-issue)
 ```
 mkdir myblog && cd myblog
 hugo new site .
@@ -20,6 +17,34 @@ git submodule add git@github.com:MeiK2333/github-style.git themes/github-style
 vim .gitignore
 git add .
 git push -u origin master
+```
+
+### git submodule 相关命令
+[git子模块的修改和更新操作_子模块怎么修改上传-CSDN博客](https://blog.csdn.net/xqj2333/article/details/107826608)  
+[Git submodule add: "a git directory is found locally" issue - Stack Overflow](https://stackoverflow.com/questions/20929336/git-submodule-add-a-git-directory-is-found-locally-issue)  
+
+在父项目中修改并提交子项目代码  
+子项目中有三种状态，一是以版本编号命名的游离态，二是主分支master，三是自己创建的分支。一般是在自己的分支进行修改。先cd到子项目的目录下，然后执行以下语句：
+```
+git checkout <分支名>
+git add .
+git commit -m "说明信息"
+git push origin <远程分支名>
+```
+
+在父项目中更新子项目修改
+```
+git submodule update --init  // 初始化版本
+git submodule update --remote  // 更新到最新版本
+```
+
+在父项目中提交子项目版本
+```
+git submodule update --init
+git submodule update --remote
+git add 子项目所在文件夹
+git commit -m "说明信息"
+git push
 ```
 
 ### 更新主题
@@ -49,6 +74,7 @@ hugo new post/title_of_the_post.md
 -w 修改后本地服务器可以立即变化  
 -D 也显示 `draft: true`的帖子
 
+### 错误1
 如果出现了下面的报错，检查下：  
 1.使用的配置文件是哪个  
 2.`config.toml`文件中的`themeDir`的路径以及`theme`的名称是否和下载的文件夹名称一致
@@ -57,6 +83,8 @@ WARN 2019/05/31 16:14:35 found no layout file for "HTML" for "section": You shou
 WARN 2019/05/31 16:14:35 found no layout file for "HTML" for "section": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
 WARN 2019/05/31 16:14:35 found no layout file for "HTML" for "taxonomyTerm": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
 ```
+### 错误2
+有些主题（比如puppet）依赖hugo名字中带extended的版本：`hugo_extended_0.121.2_linux-amd64.tar.gz`，否则会执行报错。
 
 ## 4.部署到 Github Pages
 
