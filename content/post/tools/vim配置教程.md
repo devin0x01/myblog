@@ -49,7 +49,7 @@ $ diff plug.vim plug.vim.bak
 ## 2.NERDTree
 文件浏览器
 [preservim/nerdtree: A tree explorer plugin for vim.](https://github.com/preservim/nerdtree)
-```vimrc
+```vim
 "官方推荐的map
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
@@ -79,7 +79,7 @@ nnoremap <C-f> :NERDTreeFind<CR>
 用于支持Nerd Fonts, Nerd Fonts需要额外安装
 [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons)
 
-```vimrc
+```vim
 set encoding=UTF-8
 
 call plug#begin()
@@ -167,7 +167,7 @@ EXAMPLES
 ## 6.taglist
 [vim-scripts/taglist.vim: Source code browser (supports C/C++, java, perl, python, tcl, sql, php, etc)](https://github.com/vim-scripts/taglist.vim)  
 Taglist其实是一个vim的插件，能将当前vim打开的文件中函数名、变量名等在一个窗口中列出来，并支持通过列出的函数名实现跳转。
-```vimrc
+```vim
 map <F2> :Tlist <CR>
 
 let Tlist_Show_One_File=1
@@ -180,7 +180,7 @@ let Tlist_Use_Right_Window=1
 
 ## 7.winmanager
 [anscoral/winmanager.vim: winmanager : A windows style IDE for Vim](https://github.com/anscoral/winmanager.vim)  
-```vimrc
+```vim
 let g:winManagerWindowLayout='FileExplorer|TagList'
 nmap wm :WMToggle<cr>
 ```
@@ -201,7 +201,7 @@ nmap wm :WMToggle<cr>
 # 7.LeaderF
 [Yggdroot/LeaderF: An efficient fuzzy finder that helps to locate files, buffers, mrus, gtags, etc. on the fly for both vim and neovim.](https://github.com/Yggdroot/LeaderF)  
 [vim plugin介绍之LeaderF | Mingjian's Blog](https://retzzz.github.io/dc9af5aa/)  
-```vimrc
+```vim
 "let g:Lf_WindowPosition = 'popup'
 nnoremap <leader>f :Leaderf file<CR>
 nnoremap <leader>rg :Leaderf rg<CR>
@@ -223,5 +223,21 @@ leaderf生成的gtags文件是在`~/.cache/LeaderF/gtags/`目录下。
 make -j
 make install
 ```
-## 自动生成gtags文件
-[Vim 8 中 C/C++ 符号索引：GTags 篇 - 知乎](https://zhuanlan.zhihu.com/p/36279445)
+# 8.gutentags
+[Vim 8 中 C/C++ 符号索引：GTags 篇 - 知乎](https://zhuanlan.zhihu.com/p/36279445)  
+传统 ctags 系统虽和 vim 结合紧密，但只能查定义无法查引用，cscope 能查引用，但只支持 C 语言，C++都不支持，况且常年不更新。ctags 由于使用文本格式存储数据，虽用了二分查找，但打开 Linux Kernel 这样的大项目时，查询会有卡顿的感觉。
+
+GTags （或者叫做 GNU GLOBAL）比起 ctags 来说，有几个主要的优点：
+- 不但能查定义，还能查引用
+- 原生支持 6 种语言（C，C++，Java，PHP4，Yacc，汇编）
+- 扩展支持 50+ 种语言（包括 go/rust/scala 等，基本覆盖所有主流语言）
+- 使用性能更好的本地数据库存储符号，而不是 ctags 那种普通文本文件
+- 支持增量更新，每次只索引改变过的文件
+- 多种输出格式，能更好的同编辑器相集成
+
+gutentags 不但能根据文件改动自动生成 ctags 数据，还能帮我们自动更新 gtags 数据，还可以同时支持 ctags/gtags。  
+[Releases · universal-ctags/ctags-nightly-build](https://github.com/universal-ctags/ctags-nightly-build/releases)  
+```vim
+" 如果使用 universal ctags 需要增加下面一行，老的 Exuberant-ctags 不能加下一行
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+```
