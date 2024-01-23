@@ -108,10 +108,6 @@ name = "Inoreader"
 url = "https://www.inoreader.com"
 # icon = "https://cdn.jsdelivr.net/gh/devin0x01/myimages@logo/logo/inoreader.png"
 [[params.friends]]
-name = "HelloGithub"
-url = "https://hellogithub.com"
-# icon = "https://cdn.jsdelivr.net/gh/devin0x01/myimages@logo/logo/v2ex.png"
-[[params.friends]]
 name = "OSChina"
 url = "https://www.oschina.net"
 # icon = "https://cdn.jsdelivr.net/gh/devin0x01/myimages@logo/logo/oschina.png"
@@ -136,6 +132,9 @@ url = "https://github.com/skywind3000/awesome-cheatsheets/blob/master/editors/vi
 [[params.friends]]
 name = "VimL"
 url = "https://github.com/skywind3000/awesome-cheatsheets/blob/master/languages/vimscript.md"
+[[params.friends]]
+name = "LearnWeb"
+url = "https://web.qianguyihao.com"
 
 # 评论系统
 # See https://giscus.app/
