@@ -147,3 +147,30 @@ Aug 06 05:13:53 firefly frpc[1361]: 2023/08/06 05:13:53 [I] [service.go:301] [f8
 Aug 06 05:13:53 firefly frpc[1361]: 2023/08/06 05:13:53 [I] [proxy_manager.go:150] [f8d3384fbb8c1471] proxy added: [ssh]
 Aug 06 05:13:53 firefly frpc[1361]: 2023/08/06 05:13:53 [I] [control.go:172] [f8d3384fbb8c1471] [ssh] start proxy success
 ```
+
+# 2.Systemd
+[Systemd 入门教程：命令篇 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-commands.html)  
+
+## 2.1 service命令
+`service`其实是去`/etc/init.d`目录下执行相关程序
+```bash
+# service命令启动redis脚本
+service redis start
+# 直接启动redis脚本
+/etc/init.d/redis start
+# 开机自启动
+update-rc.d redis defaults
+# 查看服务状态
+service redis status
+```
+## 2.2 systemctl命令
+systemd是Linux系统最新的初始化系统(init)，作用是提高系统的启动速度，尽可能启动较少的进程，尽可能更多进程并发启动。systemd对应的进程管理命令是systemctl
+
+systemctl命令兼容了service，即systemctl也会去/etc/init.d目录下，查看执行相关程序。  
+systemctl命令管理systemd的资源Unit放在目录`/usr/lib/systemd/system`(Centos)或`/etc/systemd/system`(Ubuntu)，主要有四种类型文件.mount,.service,.target,.wants
+```bash
+systemctl redis start
+systemctl redis stop
+systemctl enable redis
+systemctl status redis
+```
