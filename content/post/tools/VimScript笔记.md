@@ -7,8 +7,9 @@ draft: false
 toc: true
 ---
 
-[VimScript 五分钟入门（翻译） - 知乎](https://zhuanlan.zhihu.com/p/37352209)
-[wsdjeg/vim-plugin-dev-guide: Vim 插件开发指南](https://github.com/wsdjeg/vim-plugin-dev-guide)
+[VimScript 五分钟入门（翻译） - 知乎](https://zhuanlan.zhihu.com/p/37352209)  
+[Vimscript 高级折叠_w3cschool](https://www.w3cschool.cn/vim/51wp8ozt.html)  
+[wsdjeg/vim-plugin-dev-guide: Vim 插件开发指南](https://github.com/wsdjeg/vim-plugin-dev-guide)  
 
 # 基本语法
 `:source %`: %表示当前文件的路径  
@@ -41,6 +42,10 @@ t:var - tab 局部变量
 s:var - 当前脚本内可见的局部变量
 v:var - Vim 预定义的内部变量
 ```
+含`$`前缀的变量是环境变量。  
+含`v:`前缀的变量是 vim 内部提供的预定义常量或变量。用户不能增删这类特殊变量，也不能修改其类型与含义。`v:`本身也是个字典集合变量，可用`:echo v:`命令查看所有这类变量。比如`v:lnum`表示和折叠功能相关的行号。  
+含`&`前缀的变量表示选项的值，相当于把选项变量化，以便于在 VimL 中编程。比如`&filetype`表示文件类型。  
+
 ## 字符串比较
 - `<string>` == `<string>`: 字符串相等
 - `<string>` != `<string>`: 字符串不等
