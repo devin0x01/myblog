@@ -61,7 +61,8 @@ remote_port = 6000 # 注意：需要在云服务器上开放6000端口
 ```
 
 运行方式：`/opt/frp/frpc -c /opt/frp/frpc.ini`  
-访问内网机器的方式：`ssh -p 6000 test@x.x.x.x`  
+公网机器ssh访问内网机器的方式：`ssh -p 6000 firefly@localhost`  
+公网机器scp访问内网机器的方式：`scp -P 6000 ./* firefly@localhost:/opt`  
 
 注意：不要使用后台方式运行，`nohup /opt/frp/frpc -c /opt/frp/frpc.ini 2>&1 &`
 ，否则下次连接可能会遇到以下报错：[frp错误，frp报错，[ssh] start error: proxy name [ssh] is already in use_狗狗25的博客-CSDN博客](https://blog.csdn.net/wzying25/article/details/105482746)
