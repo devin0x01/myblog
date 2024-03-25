@@ -76,7 +76,9 @@ nnoremap <C-f> :NERDTreeFind<CR>
 | q     | 退出NerdTree |
 
 ## 3.vim-devicons
-用于支持Nerd Fonts, Nerd Fonts需要额外安装
+首先需要安装Nerd Fonts，比如可以安装[ryanoasis/nerd-fonts](https://github.com/ryanoasis/nerd-fonts/releases/tag/v3.1.1)里面的FiraCode
+
+这个插件用于支持Nerd Fonts
 [ryanoasis/vim-devicons: Adds file type icons to Vim plugins such as: NERDTree, vim-airline, CtrlP, unite, Denite, lightline, vim-startify and many more](https://github.com/ryanoasis/vim-devicons)
 
 ```vim
